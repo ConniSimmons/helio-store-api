@@ -25,7 +25,7 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: ${self:custom.tableName}
+    tableName: notes
     stripeSecretKey: ${env:STRIPE_SECRET_KEY}
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
@@ -61,20 +61,18 @@ functions:
           cors: true
           authorizer: aws_iam
 
-    get:
+  get:
     # Defines an HTTP API endpoint that calls the main function in get.js
     # - path: url path is /notes/{id}
     # - method: GET request
     handler: get.main
-    memorySize: 128
-    timeout: 10
     events:
       - http:
           path: notes/{id}
           method: get
           cors: true
           authorizer: aws_iam
-          
+
   list:
     # Defines an HTTP API endpoint that calls the main function in list.js
     # - path: url path is /notes
@@ -86,6 +84,7 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
     # - path: url path is /notes/{id}
@@ -97,6 +96,7 @@ functions:
           method: put
           cors: true
           authorizer: aws_iam
+
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /notes/{id}
@@ -108,6 +108,7 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+
   billing:
     # Defines an HTTP API endpoint that calls the main function in billing.js
     # - path: url path is /billing
